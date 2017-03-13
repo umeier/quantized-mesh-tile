@@ -263,6 +263,35 @@ class TerrainTile(object):
             coordinates.append((lon, self._lats[i], self._heights[i]))
         return coordinates
 
+    def getEdgeVerticesCoordinates(self, edge):
+        """
+        A method to retrieve the coordinates of the vertices at the specified edge of the tile in lon, lat.
+
+        Arguments:
+
+        ``edge``
+
+            'north', 'south', 'east' or 'west'.
+        """
+        coordinates = []
+        self._computeVerticesCoordinates()
+        if not edge in ('north', 'south', 'east', 'west'):
+            raise ValueError
+        else:
+            if edge == 'south':
+                v_edge = self.southI
+            elif edge == 'north':
+                v_edge = self.northI
+            elif edge == 'east':
+                v_edge = self.eastI
+            elif edge == 'west':
+                v_edge = self.westI
+            else:
+                raise ValueError
+        for vi in v_edge:
+            coordinates.append((self._longs[vi], self._lats[vi]))
+        return coordinates
+
     def getTrianglesCoordinates(self):
         """
         A method to retrieve triplet of coordinates representing the triangles

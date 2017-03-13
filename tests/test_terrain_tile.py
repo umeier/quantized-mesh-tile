@@ -282,6 +282,30 @@ class TestTerrainTile(unittest.TestCase):
         self.assertGreater(len(ter.eastI), 0)
         self.assertGreater(len(ter.northI), 0)
 
+        north_coords = ter.getEdgeVerticesCoordinates(edge='north')
+        for lon, lat in north_coords:
+            self.assertEqual(lat, maxy)
+            self.assertLessEqual(lon, maxx)
+            self.assertGreaterEqual(lon, minx)
+
+        south_coords = ter.getEdgeVerticesCoordinates(edge='south')
+        for lon, lat in south_coords:
+            self.assertEqual(lat, miny)
+            self.assertLessEqual(lon, maxx)
+            self.assertGreaterEqual(lon, minx)
+
+        east_coords = ter.getEdgeVerticesCoordinates(edge='east')
+        for lon, lat in east_coords:
+            self.assertEqual(lon, maxx)
+            self.assertLessEqual(lat, maxy)
+            self.assertGreaterEqual(lat, miny)
+
+        west_coords = ter.getEdgeVerticesCoordinates(edge='west')
+        for lon, lat in west_coords:
+            self.assertEqual(lon, minx)
+            self.assertLessEqual(lat, maxy)
+            self.assertGreaterEqual(lat, miny)
+
         # check extensions
         self.assertEqual(len(ter.watermask), 1)
         self.assertEqual(len(ter.watermask[0]), 1)
